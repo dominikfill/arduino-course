@@ -14,7 +14,7 @@ void loop() {
   digitalWrite(TRIG_PIN, LOW);
   long duration = pulseIn(ECHO_PIN, HIGH, 30000);
   float cm = duration * 0.0343 / 2;
-  int brightness = map(cm, 5, 100, 255, 0);
+  int brightness = map(cm, 2, 50, 255, 0);
   brightness = constrain(brightness, 0, 255);
   analogWrite(LED_PIN, brightness);
   delay(50);

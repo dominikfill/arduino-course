@@ -4,7 +4,7 @@ layout: section
 
 # Sensors
 
-The space starts to sense: light, warmth, distance.
+Sensing: light, warmth, distance.
 
 ---
 clicks: 2
@@ -111,14 +111,14 @@ Values are typical, not exact: every sensor is a bit different. That's why stude
 <div class="split wide-left">
 <div>
 
-<div class="placeholder h-full">Wiring: LED on pin 9 as before + light sensor from + rail to a free strip, that strip to A0, 10 kΩ from that strip to − rail (Fritzing)</div>
+<Figure class="h-full" src="/images/wiring-photoresistor.svg" alt="Light sensor from the + rail to a free strip, that strip to A0, 10 kΩ from that strip to the − rail; LED on pin 9" credit="Made with Fritzing" />
 
 </div>
 <div>
 
-1. **Unplug.** Take out the knob, keep the red wire 5V → **+** rail
-2. **Light sensor:** one leg → **+** rail, the other → a **free strip**
-3. That strip → **A0**
+1. **Unplug.** Take out the knob, keep the 5V and GND wires
+2. **Light sensor:** legs in **two different strips**, one strip → **+** rail (red)
+3. The other strip → **A0** (yellow)
 4. **10 kΩ** from that strip → **−** rail
 
 <div class="note mt-4">
@@ -163,6 +163,8 @@ Nothing new: `analogRead` and the Serial Monitor, as with the knob.
 
 You'll need both numbers on the next slide.
 
+Tip: **Tools → Serial Plotter** draws the numbers as a line. Move your hand slowly over the sensor.
+
 </div>
 
 </div>
@@ -171,6 +173,7 @@ You'll need both numbers on the next slide.
 <!--
 Typical: a few hundred to 900 in a bright room, below 200 covered. Every sensor and every room gives different numbers.
 Let them compare: why are the numbers different on every table? Light, sensor, resistor tolerance.
+The Serial Plotter shows the analog signal as a curve: slow hand movements give smooth slopes. The first time students see "analog" as a shape.
 -->
 
 ---
@@ -189,7 +192,7 @@ class: code-compact
 </div>
 <div>
 
-<MapScale :from="[100, 900]" :to="[255, 0]" :value="[800, 800, 950, 250, 250][$clicks] ?? 250"
+<MapScale class="max-h-40" :from="[100, 900]" :to="[255, 0]" :value="[800, 800, 950, 250, 250][$clicks] ?? 250"
           top="LIGHT · analogRead" bottom="BRIGHTNESS · analogWrite" />
 
 <div v-click="1" class="spec compact mt-2"><b><code>map</code></b><span>lays one range onto another. <code>255, 0</code>: reversed</span></div>
@@ -208,5 +211,4 @@ class: code-compact
 map(value, fromLow, fromHigh, toLow, toHigh): like laying one scale bar onto another. 100 on the light scale lands on 255, 900 lands on 0.
 Reversed target range (255, 0): more light, less LED. That's the whole trick of the night light.
 constrain: the room can get brighter than 900 or darker than 100. Then map() would give values outside 0–255 (below 0 or above 255), which analogWrite can't use. constrain cuts them off. Click 2 shows it: 950 lands at 0, not below.
-Architecture: a façade that lights up at dusk, an entrance that brightens as daylight fades. The same 4 lines.
 -->

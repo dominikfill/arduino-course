@@ -1,4 +1,4 @@
-const int TEMP_PIN = A1;
+const int TEMP_PIN = A0;
 
 void setup() {
   Serial.begin(9600);
