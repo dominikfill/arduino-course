@@ -7,18 +7,23 @@
 //              :marks="[{ n: 2, x: 40, y: 50 }, { n: 3, x: 12, y: 50 }]" />
 //
 // src must be an absolute path into public/ (see Figure.vue).
-defineProps<{
+import { computed } from 'vue'
+
+const props = defineProps<{
   src: string
   alt?: string
   marks?: { n: number | string, x: number, y: number }[]
   credit?: string
 }>()
+
+// prefix the site's base path, so images also load when hosted in a subfolder (GitHub Pages)
+const url = computed(() => import.meta.env.BASE_URL + props.src.replace(/^\//, ''))
 </script>
 
 <template>
   <figure class="annotated">
     <div class="frame">
-      <img :src="src" :alt="alt ?? ''">
+      <img :src="url" :alt="alt ?? ''">
       <span v-for="m in marks" :key="m.n" class="mark"
             :style="{ left: `${m.x}%`, top: `${m.y}%` }">{{ m.n }}</span>
     </div>

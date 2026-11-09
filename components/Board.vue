@@ -25,13 +25,16 @@ const viewBox = computed(() =>
 )
 
 const pwmPins = [535, 567, 598, 712, 743, 807]
+
+// the site's base path, so the photo also loads when hosted in a subfolder (GitHub Pages)
+const photo = import.meta.env.BASE_URL + 'images/arduino-uno-r4-wifi.png'
 </script>
 
 <template>
   <figure class="board">
     <svg :viewBox="viewBox" role="img" aria-label="Arduino UNO R4 WiFi, background removed, labels added">
       <image class="photo" x="20" y="150" width="1000" height="750"
-             href="/images/arduino-uno-r4-wifi.png" />
+             :href="photo" />
 
       <!-- top -->
       <g v-if="has('usb')">
