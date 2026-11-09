@@ -8,7 +8,8 @@
     "dev:test": "slidev test.md --open",
     "dev:s1": "slidev session-1.md --open",
     "dev:s2": "slidev session-2.md --open",
-    "export": "slidev export"
+    "export": "slidev export",
+    "dev:s3": "slidev session-3.md --open"
   },
   "dependencies": {
     "@slidev/cli": "^53.0.0",
