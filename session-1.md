@@ -8,6 +8,7 @@ fonts:
   weights: '400,500,600'
 lineNumbers: false
 transition: none
+routerMode: hash
 layout: cover
 ---
 

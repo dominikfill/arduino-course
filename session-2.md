@@ -8,6 +8,7 @@ fonts:
   weights: '400,500,600'
 lineNumbers: false
 transition: none
+routerMode: hash
 layout: cover
 ---
 
@@ -37,4 +38,12 @@ src: ./units/temperature.md
 
 ---
 src: ./units/distance.md
+---
+
+---
+src: ./units/servo.md
+---
+
+---
+src: ./units/stepper.md
 ---

@@ -1,0 +1,77 @@
+# Builds both sessions on every push to main and publishes them on GitHub Pages:
+#   https://<username>.github.io/<repository>/session-1/
+#   https://<username>.github.io/<repository>/session-2/
+name: Publish slides
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BASE: /${{ github.event.repository.name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build session 1
+        run: npx slidev build session-1.md --out dist/session-1 --base $BASE/session-1/
+
+      - name: Build session 2
+        run: npx slidev build session-2.md --out dist/session-2 --base $BASE/session-2/
+
+      - name: Start page with links to both sessions
+        run: |
+          cat > dist/index.html <<HTML
+          <!doctype html>
+          <html lang="en"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>Responsive Pavilion · Arduino</title>
+          <style>
+            body { margin: 0; padding: 3rem 1.5rem; background: #f6f4ef; color: #141414;
+                   font: 1.15rem/1.5 "IBM Plex Sans", system-ui, sans-serif; }
+            main { max-width: 32rem; margin: 0 auto; }
+            h1 { font-size: 1.6rem; font-weight: 600; margin: 0 0 2rem; }
+            a { display: block; padding: 1rem 0; border-top: 1px solid #141414;
+                color: inherit; text-decoration: none; font-weight: 500; }
+            a:last-child { border-bottom: 1px solid #141414; }
+            a:hover { color: #57554f; }
+          </style></head>
+          <body><main>
+            <h1>Responsive Pavilion · Arduino</h1>
+            <a href="session-1/">Session 1 →</a>
+            <a href="session-2/">Session 2 →</a>
+          </main></body></html>
+          HTML
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
