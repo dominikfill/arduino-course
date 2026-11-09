@@ -8,6 +8,7 @@ import { computed } from 'vue'
 //   <Circuit :voltage="$clicks >= 1" :current="$clicks >= 2" :resistance="$clicks >= 3" />
 //   <Circuit current high :resistor="false" />       no resistor: too much current
 //   <Circuit current button :pressed="$clicks >= 1" /> a push button in the loop
+//   <Circuit current voltage :share="2" />            how the 5 V is shared: 1 LED, 2 + resistor
 //
 // Ink = parts and wires · blue (--signal) = current, the only colour in diagrams.
 const props = withDefaults(defineProps<{
@@ -20,9 +21,15 @@ const props = withDefaults(defineProps<{
   button?: boolean       // a push button in the bottom wire
   pressed?: boolean      // ...and whether it is pressed (closes the loop)
   ohms?: string          // resistor value label
+  share?: number         // voltage each part takes: 1 = LED, 2 = LED and resistor
+  ledVolts?: string
+  resistorVolts?: string
 }>(), {
   resistor: true,
   ohms: '470 Ω',
+  share: 0,
+  ledVolts: '≈ 2 V',
+  resistorVolts: '≈ 3 V',
 })
 
 // current flows only through a closed loop
@@ -75,9 +82,17 @@ const flowing = computed(() =>
       <path class="ink-fill" d="M256 28l7-4-1 8ZM270 28l7-4-1 8Z" />
     </g>
     <text class="label small" x="251" y="116" text-anchor="middle">LED</text>
+    <g class="layer" :class="{ on: share >= 1 }">
+      <text class="gloss strong" x="251" y="135" text-anchor="middle">{{ ledVolts }}</text>
+    </g>
 
     <!-- resistor -->
     <rect v-if="resistor" class="part" x="346" y="120" width="28" height="70" />
+    <!-- part name, always shown like "LED"; inside the loop, clear of the RESISTANCE layer -->
+    <text v-if="resistor" class="label small" x="334" y="160" text-anchor="end">RESISTOR</text>
+    <g v-if="resistor" class="layer" :class="{ on: share >= 2 }">
+      <text class="gloss strong" x="334" y="179" text-anchor="end">{{ resistorVolts }}</text>
+    </g>
 
     <!-- voltage -->
     <g class="layer" :class="{ on: voltage }">

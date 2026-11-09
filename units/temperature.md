@@ -21,7 +21,7 @@ The TMP36 has electronics inside: it **turns the temperature into a voltage**. N
 
 <div class="note mt-4">
 
-Three legs. Flat side facing you, legs down: **left 5V**, **middle signal**, **right GND**.
+Three legs. **Printing facing you**, legs down: **left 5V**, **middle signal**, **right GND**.
 
 </div>
 
@@ -44,13 +44,13 @@ Wired the wrong way round, the TMP36 gets hot within seconds. If it's hot to the
 <div class="split wide-left">
 <div>
 
-<div class="placeholder h-full">Wiring: TMP36, flat side facing you: left → 5V, middle → A1, right → − rail. Light sensor and LED stay (Fritzing)</div>
+<div class="placeholder h-full">Wiring: TMP36, printing facing you: left → + rail, middle → A1, right → − rail. Light sensor and LED stay (Fritzing)</div>
 
 </div>
 <div>
 
-1. TMP36 into **three different strips**, flat side facing you
-2. Left leg → **5V**
+1. **Unplug.** TMP36 into **three different strips**, **printing facing you**
+2. Left leg → **+** rail
 3. Middle leg → **A1**
 4. Right leg → **−** rail
 
@@ -65,7 +65,8 @@ Wired the wrong way round, the TMP36 gets hot within seconds. If it's hot to the
 
 <!--
 A1, not A0: the light sensor can stay where it is. Later both can be read together.
-The TMP36 looks like a transistor. If the kit has both, check the print on the flat side: TMP36.
+The TMP36 looks like a transistor. If the kit has both, check the print: TMP36.
+Say "printing facing you", not "flat side": in testing, "flat side" got turned the wrong way and the sensor overheated. The printing is on the flat side, but students look for the text, not the shape.
 -->
 
 ---
@@ -126,7 +127,7 @@ class: code-compact
 </div>
 <div>
 
-<div v-click="1" class="spec compact"><b><code>if ( )</code></b><span>a condition: <code>celsius &gt; 27.0</code></span></div>
+<div v-click="1" class="spec compact"><b><code>if ( )</code></b><span>a condition, as with the button: <code>celsius &gt; 27.0</code></span></div>
 <div v-click="2" class="spec compact"><b><code>{ }</code></b><span>runs only when the condition is <strong>true</strong></span></div>
 <div v-click="3" class="spec compact"><b><code>else { }</code></b><span>runs when it is <strong>false</strong></span></div>
 
@@ -141,6 +142,8 @@ Compare with `>` `<` `>=` `<=` `==` `!=`
 **Try:** set the threshold 2 °C above your room temperature. Can you switch the light with your hand?
 
 </div>
+
+<p class="example">too warm: open a vent</p>
 
 </div>
 </div>

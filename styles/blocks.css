@@ -15,7 +15,7 @@
   margin: 0;
 }
 
-.slidev-layout .figure > img {
+.slidev-layout .figure>img {
   flex: 1 1 0%;
   min-height: 0;
   width: 100%;
@@ -24,10 +24,12 @@
 }
 
 /* Photos: no blending, full colour */
-.slidev-layout .figure.photo > img { mix-blend-mode: normal; }
+.slidev-layout .figure.photo>img {
+  mix-blend-mode: normal;
+}
 
-.slidev-layout .figure > .credit,
-.slidev-layout .figure > figcaption {
+.slidev-layout .figure>.credit,
+.slidev-layout .figure>figcaption {
   flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -35,7 +37,9 @@
   color: var(--ink-muted);
 }
 
-.slidev-layout .figure .credit a { color: inherit; }
+.slidev-layout .figure .credit a {
+  color: inherit;
+}
 
 /* Placeholder: marks a missing image. Same footprint as .figure.
    <div class="placeholder">Breadboard view: LDR + 10k</div> */
@@ -63,17 +67,17 @@
   margin-bottom: 0.9em;
 }
 
-.slidev-layout .spec > b {
+.slidev-layout .spec>b {
   font-weight: 600;
   color: var(--ink);
 }
 
-.slidev-layout .spec:not(.compact) > b {
+.slidev-layout .spec:not(.compact)>b {
   font-size: 1.15em;
   line-height: 1.3;
 }
 
-.slidev-layout .spec > code {
+.slidev-layout .spec>code {
   justify-self: end;
   align-self: baseline;
   font-size: 0.85em;
@@ -82,21 +86,31 @@
   padding: 0 !important;
 }
 
-.slidev-layout .spec > span {
+.slidev-layout .spec>span {
   grid-column: 1 / -1;
   margin-top: 0.1em;
 }
 
 /* Compact spec: term and description on one line
-   <div class="spec compact"><b><code>setup()</code></b><span>runs once</span></div> */
+   <div class="spec compact"><b><code>setup()</code></b><span>runs once</span></div>
+   Terms of one or two characters (; { } //): put the specs in a
+   <div class="short-terms"> so the descriptions get the width. */
 .slidev-layout .spec.compact {
-  grid-template-columns: 8.5em 1fr;
+  grid-template-columns: var(--spec-term, 8.5em) 1fr;
   margin-bottom: 0.45em;
 }
 
-.slidev-layout .spec.compact > span {
+.slidev-layout .spec.compact>span {
   grid-column: auto;
   margin-top: 0;
+}
+
+.slidev-layout .short-terms {
+  --spec-term: 3em;
+}
+
+.slidev-layout .mid-terms {
+  --spec-term: 5em;
 }
 
 /* Note: smaller side remark in the muted colour (no opacity)
@@ -109,7 +123,9 @@
   color: var(--ink-muted);
 }
 
-.slidev-layout .note p { margin: 0 0 0.5em; }
+.slidev-layout .note p {
+  margin: 0 0 0.5em;
+}
 
 /* Task: a moment where students act. Start with **Predict:** or **Try:**
    The accent appears nowhere else.
@@ -117,15 +133,41 @@
 .slidev-layout .task {
   border-left: 3px solid var(--accent);
   padding: 0.35em 0 0.35em 0.75em;
-  font-size: 1rem;
 }
 
-.slidev-layout .task p { margin: 0 0 0.4em; }
-.slidev-layout .task p:last-child { margin-bottom: 0; }
+.slidev-layout .task p {
+  margin: 0 0 0.4em;
+}
 
-.slidev-layout .task strong { color: var(--accent); }
+.slidev-layout .task p:last-child {
+  margin-bottom: 0;
+}
+
+.slidev-layout .task strong {
+  color: var(--accent);
+}
 
 /* Figures inside columns fill the column height and scale to fit */
 .slidev-layout .split .figure {
   height: 100%;
+}
+
+/* Example: a concrete case under an idea, labelled like a drawing annotation
+   <p class="example">lights that brighten as visitors come closer</p> */
+.slidev-layout .example {
+  margin: 1em 0 0;
+  padding-top: 0.4em;
+  border-top: 1px solid var(--rule-faint);
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+}
+
+.slidev-layout .example::before {
+  content: 'Example';
+  display: block;
+  margin-bottom: 0.1em;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }

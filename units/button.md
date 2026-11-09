@@ -1,4 +1,12 @@
 ---
+layout: section
+---
+
+# Inputs
+
+The board starts to listen: a button, a knob, and a dimmer.
+
+---
 clicks: 1
 ---
 
@@ -14,11 +22,15 @@ clicks: 1
 </div>
 <div>
 
-Put a **button** into the loop: between the resistor and the **−** rail.
+Put a **button** into the loop, between the resistor and the **−** rail:
+
+1. **Unplug.** Move the resistor's end from the **−** rail into a **free strip**
+2. **Button:** one leg in that strip, the other in the **−** rail
+3. Plug in, keep the heartbeat sketch running
 
 <div class="task mt-4">
 
-**Try:** keep the heartbeat sketch running. What happens when you press?
+**Try:** what happens when you press?
 
 </div>
 
@@ -33,6 +45,7 @@ Pressing **closes the loop**. The heartbeat only shows while you press.
 
 <!--
 No code change: the sketch keeps beating, the button decides whether current can flow.
+Check as you walk round: the resistor must leave the rail, otherwise the button is bypassed and the LED just keeps beating.
 The button is the gap from the loop slide, in their hand.
 -->
 
@@ -51,6 +64,8 @@ The button is the gap from the loop slide, in their hand.
 
 The button is **part of the loop**. It controls the current itself.
 
+<p class="example">a light switch by the door</p>
+
 </div>
 <div v-click>
 
@@ -59,6 +74,8 @@ The button is **part of the loop**. It controls the current itself.
 <p class="chain">button → pin 2 → program → pin 9 → LED</p>
 
 The button only **reports**: pressed or not. The **program** decides what happens.
+
+<p class="example">lights that grow brighter as visitors come closer</p>
 
 </div>
 </div>
@@ -71,6 +88,7 @@ Only an **input** can make a space responsive: the program can react later, diff
 
 <!--
 This is the core idea of physical computing. Take your time.
+The input example is today's last exercise (distance sensor, "come closer"): say so.
 Examples: a switch turns the light on. An input could turn it on only at night, or fade it, or count visitors.
 -->
 
@@ -88,13 +106,13 @@ Examples: a switch turns the light on. An input could turn it on only at night, 
 </div>
 <div>
 
-1. Take the button **out of the LED loop**: pin 9 → LED → 470 Ω → **−** rail, as before
-2. Button legs into **two different strips**
-3. One leg → **pin 2**, the other leg → **−** rail
+1. **Unplug.** Resistor's end back into the **−** rail: the LED loop as before
+2. **Button** legs into **two different strips** (across the gap works)
+3. One leg → **pin 2**, the other → **−** rail
 
 <div class="note mt-4">
 
-Two separate loops: the button touches nothing in the LED circuit. The **program** connects them.
+Two circuits that share only the **−** rail, the way back. The **program** connects them.
 
 </div>
 
@@ -127,11 +145,16 @@ class: code-compact
 <div v-click="2" class="spec compact"><b><code>INPUT_PULLUP</code></b><span>built-in resistor. Not pressed = <code>HIGH</code>, pressed = <code>LOW</code></span></div>
 <div v-click="3" class="spec compact"><b><code>digitalRead</code></b><span>reads the pin: <strong>digital</strong>, only <code>HIGH</code> or <code>LOW</code></span></div>
 <div v-click="3" class="spec compact"><b><code>if ( ) { }</code></b><span>runs the lines inside only when the condition is <strong>true</strong></span></div>
-<div v-click="3" class="spec compact"><b><code>==</code></b><span><strong>compares</strong>. A single <code>=</code> assigns.</span></div>
 
 <div v-click="4" class="task mt-4">
 
 **Predict:** press during the long pause, then during a beat. When does the heart stop?
+
+</div>
+
+<div v-click="5" class="mt-3">
+
+Only at the start of each heartbeat. While `delay()` waits, the board isn't looking.
 
 </div>
 
@@ -141,7 +164,8 @@ class: code-compact
 <!--
 INPUT_PULLUP: just name it here (not pressed = HIGH, pressed = LOW). The next slide explains why.
 Read the if aloud: "if the button is not pressed, beat".
-The delay: the button is only checked once per heartbeat, about every 1.2 s. While delay() waits, the board can't look at the button. That's why it reacts late. The fix (millis) comes in a later session.
+== compares, a single = assigns: point at the == in line 10. Writing = there is a classic bug the compiler often lets through.
+[click:5] The delay: the button is only checked once per heartbeat, about every 1.2 s. While delay() waits, the board can't look at the button. That's why it reacts late. The fix (millis) comes in a later session.
 -->
 
 ---
@@ -160,31 +184,37 @@ clicks: 4
 </div>
 <div>
 
-Pin 2 only **measures** the voltage at its connection.
+Pin 2 only **looks**: it measures the voltage at its connection.
 
-**Pressed:** connected to GND → 0 V → `LOW`
+**Pressed:** connected to GND → `LOW`
+
+<div class="task mt-3">
+
+**Predict:** and released? The pin touches nothing.
+
+</div>
 
 <div v-click="1" class="mt-3">
 
-**Released:** connected to nothing. The pin **floats** and reads random values.
+**Released:** connected to nothing. The pin **floats**: random values.
 
 </div>
 
 <div v-click="2" class="mt-3">
 
-`INPUT_PULLUP` adds a resistor from **5 V** to pin 2. No current flows, so no voltage is lost → 5 V → `HIGH`
+**`INPUT_PULLUP`:** a resistor from 5 V. No current, no drop → `HIGH`
 
 </div>
 
 <div v-click="3" class="mt-3">
 
-**Pressed:** current flows through the pull-up and the button to GND. The **pull-up** takes all 5 V → 0 V → `LOW`
+**Pressed:** now current flows, and the pull-up takes the 5 V → `LOW`
 
 </div>
 
 <div v-click="4" class="note mt-4">
 
-Why not a plain wire to 5 V? Pressing would connect 5 V directly to GND: a **short circuit**.
+Why not a wire to 5 V? Pressing would connect 5 V straight to GND: a **short circuit**.
 
 </div>
 
@@ -194,6 +224,7 @@ Why not a plain wire to 5 V? Pressing would connect 5 V directly to GND: a **sho
 <!--
 Step by step, one click each:
 0: pressed, no pull-up. Clear case: pin 2 is connected to GND, 0 V, LOW.
+Before click 1: collect guesses for the Predict. Most say LOW or 0 V, as if "nothing" meant 0.
 1: released. The pin is a wire end connected to nothing: no defined voltage, it picks up disturbances and reads random values. That's "floating".
 2: INPUT_PULLUP switches on a resistor from 5 V to pin 2, inside the chip. No current flows (the input only measures, the button is open). Ohm's law: no current, no voltage drop across the resistor. The pin sees the full 5 V: HIGH.
 3: pressed. Now current flows: 5 V, pull-up, pin 2, button, GND. Two parts share the 5 V, like LED and resistor earlier: the pull-up has a large resistance and takes almost all of it, the pressed button has almost none and takes almost 0 V. Pin 2 sits between them, on the button's side: 0 V, LOW. (The LED's 470 Ω is a separate circuit and plays no part here.)

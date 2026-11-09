@@ -25,18 +25,26 @@
 }
 
 /* First code block in a column sits flush with the top, level with neighbours */
-.slidev-layout .split > * > .slidev-code-wrapper:first-child {
+.slidev-layout .split>*>.slidev-code-wrapper:first-child {
   margin-top: 0 !important;
 }
 
 /* Inline code */
-.slidev-layout :not(pre) > code {
+.slidev-layout :not(pre)>code {
   font-family: var(--font-mono);
   font-size: 0.9em;
   background: var(--paper-deep);
   color: var(--ink);
   padding: 0.05em 0.3em;
   border-radius: 0;
+}
+
+/* Large code for short snippets where single characters matter (; { } ( )).
+   Use per slide with  class: code-large  · up to ~32 characters per line in a wide-left column */
+.code-large pre.slidev-code,
+.code-large pre.slidev-code code {
+  font-size: 1.3rem !important;
+  line-height: 1.45 !important;
 }
 
 /* Compact code for long sketches. Use per slide with  class: code-compact */

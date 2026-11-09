@@ -5,12 +5,14 @@
 //   <Board />                                         usb, led, digital, power
 //   <Board :show="['digital', 'pwm']" />              later: PWM pins
 //   <Board :show="['analog', 'power']" />             later: sensors
+//   <Board :show="…[$clicks]" full />                 labels by click: fixed frame, no jump
 //
 // Labels: usb · led · digital · pwm · power · analog · barrel
 import { computed } from 'vue'
 
 const props = withDefaults(defineProps<{
   show?: string[]
+  full?: boolean   // always leave room for the bottom labels (no resize between clicks)
 }>(), {
   show: () => ['usb', 'led', 'digital', 'power'],
 })
@@ -19,7 +21,7 @@ const has = (k: string) => props.show.includes(k)
 
 // Crop the empty bottom margin when no bottom label is shown
 const viewBox = computed(() =>
-  ['barrel', 'power', 'analog'].some(has) ? '0 0 1050 1000' : '0 0 1050 915',
+  props.full || ['barrel', 'power', 'analog'].some(has) ? '0 0 1050 1000' : '0 0 1050 915',
 )
 
 const pwmPins = [535, 567, 598, 712, 743, 807]

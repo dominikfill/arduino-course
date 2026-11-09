@@ -1,4 +1,57 @@
 ---
+layout: section
+---
+
+# Sensors
+
+The space starts to sense: light, warmth, distance.
+
+---
+clicks: 2
+---
+
+<p class="eyebrow">Light sensor</p>
+
+# The pull-down
+
+<div class="split">
+<div>
+
+<Ldr button :pressed="$clicks >= 1" />
+
+</div>
+<div>
+
+The **mirror image** of the pull-up: the button goes to **5 V**, the 10 kΩ to **GND**.
+
+**Released:** no current, so the resistor takes **0 V**. A0 sits on GND → `0`
+
+<div v-click="1" class="mt-3">
+
+**Pressed:** A0 is connected to 5 V → `1023`
+
+</div>
+
+<div v-click="2" class="mt-3">
+
+The resistor **pulls** the pin **down** to 0 V, unless the button pulls it up.
+
+<p class="example">the door closer again, the other way round</p>
+
+</div>
+
+</div>
+</div>
+
+<!--
+Straight from the recap: same rules, mirrored. This time we read A0 with analogRead, so the numbers are 0 and 1023 instead of 0 and 1.
+Released: the button is a gap, no loop, no current. A resistor without current takes nothing: A0 sits at the level of GND.
+[click] Pressed: the button is a wire to 5 V. Current flows: 5 V ÷ 10 kΩ = 0.5 mA, the resistor takes all 5 V.
+[click] The Arduino has built-in pull-ups, but no pull-downs: this one has to be a real 10 kΩ on the breadboard.
+Why a pull-down here: the light sensor is about to take the button's place. On the next slide.
+-->
+
+---
 clicks: 3
 ---
 
@@ -9,36 +62,30 @@ clicks: 3
 <div class="split">
 <div>
 
-<Ldr :fixed="$clicks >= 2" :light="[1, 0, 1, 0][$clicks] ?? 0" />
+<Ldr :fixed="$clicks < 3" :light="[1, 0, 0.5, 0][$clicks] ?? 0" />
 
 </div>
 <div>
 
-The light sensor is a resistor: more light, **lower** resistance.
+The **light sensor** takes the button's place: a resistor that changes with light. Like a button that's only **a bit pressed**.
 
-**Alone**, no current flows: A0 sees 5 V.
+**Bright:** low resistance, almost "pressed" → A0 **high**
 
 <div v-click="1" class="mt-3">
 
-**Dark:** the resistance changes, A0 doesn't. 1023 either way.
+**Dark:** high resistance, almost "released" → A0 **low**
 
 </div>
 
 <div v-click="2" class="mt-3">
 
-With **10 kΩ** to GND, current flows. The two **share** the 5 V. Bright → A0 high.
-
-</div>
-
-<div v-click="3" class="mt-3">
-
-**Dark:** the sensor takes most of the 5 V → A0 low.
+Anything in between: an **analog** input. The sensor and the 10 kΩ **share the 5 V**.
 
 </div>
 
 <div v-click="3" class="note mt-4">
 
-The 10 kΩ turns a change in **resistance** into a change in **voltage**.
+Without the 10 kΩ: no loop, no current. A0 reads 1023, bright or dark. The resistance only shows when current flows.
 
 </div>
 
@@ -46,14 +93,12 @@ The 10 kΩ turns a change in **resistance** into a change in **voltage**.
 </div>
 
 <!--
-A0 is like a probe touching the point between sensor and 10 kΩ: it only looks, no current goes in. All the current runs 5 V → sensor → point → 10 kΩ → GND.
-Step by step, one click each:
-0: sensor alone, bright. A0 only measures, nothing leads to GND: no current. No current, no drop: A0 sees the full 5 V, 1023. Same as the pull-up with the button open.
-1: dark. The sensor's resistance jumps from about 1 kΩ to about 100 kΩ, but A0 still reads 1023. Without current, the resistance is invisible.
-2: the 10 kΩ from A0 to GND gives the current a path. Now two parts share the 5 V, like LED and resistor, pull-up and button, the two halves of the knob. Bright: sensor about 1 kΩ, it takes little, the 10 kΩ takes most: A0 about 4.5 V, 930.
-3: dark: sensor about 100 kΩ, it takes most, the 10 kΩ little: A0 about 0.5 V, 93.
+The same drawing as the slide before, with the sensor where the button was.
+Bright: sensor about 1 kΩ, it takes little, the 10 kΩ takes most: A0 about 4.5 V, 930.
+[click] Dark: sensor about 100 kΩ, it takes most, the 10 kΩ little: A0 about 0.5 V, 93.
+[click] Half light: sensor about 10 kΩ, the same as the fixed resistor: they share the 5 V equally, A0 about 2.5 V, 512. The button only knew two states, 0 and 1023. The sensor gives anything in between: digital becomes analog.
 Why 10 kΩ: it sits in the middle of the sensor's range (1 kΩ to 100 kΩ), so the share swings as far as possible. Much smaller: A0 stuck near 0 V. Much larger: stuck near 5 V.
-It's called a pull-down: it connects A0 towards GND, the mirror image of the pull-up.
+[click] Take the 10 kΩ away: the sensor alone, from 5 V to A0. A0 only measures, nothing leads to GND: no current, no drop, 1023 always. "Voltage needs a connection, current needs a loop", from the recap. The 10 kΩ turns a change in resistance into a change in voltage.
 Values are typical, not exact: every sensor is a bit different. That's why students measure their own.
 -->
 
@@ -66,13 +111,13 @@ Values are typical, not exact: every sensor is a bit different. That's why stude
 <div class="split wide-left">
 <div>
 
-<div class="placeholder h-full">Wiring: LED on pin 9 as before + light sensor from 5V to A0, 10 kΩ from A0 to − rail (Fritzing)</div>
+<div class="placeholder h-full">Wiring: LED on pin 9 as before + light sensor from + rail to a free strip, that strip to A0, 10 kΩ from that strip to − rail (Fritzing)</div>
 
 </div>
 <div>
 
-1. Take out the potentiometer
-2. Light sensor: one leg → **5V**, the other → a free strip
+1. **Unplug.** Take out the knob, keep the red wire 5V → **+** rail
+2. **Light sensor:** one leg → **+** rail, the other → a **free strip**
 3. That strip → **A0**
 4. **10 kΩ** from that strip → **−** rail
 

@@ -5,48 +5,59 @@
 //   <PullUp :pullup="false" pressed />         pressed: pin 2 connected to GND
 //   <PullUp />                                 pull-up on, not pressed: HIGH
 //   <PullUp pressed />                         pull-up on, pressed: LOW
+//   <PullUp :pullup="false" wire />            a plain wire to 5 V instead: HIGH
+//   <PullUp :pullup="false" wire pressed />    ...pressed: short circuit
+//   <PullUp outside />                         a resistor on the breadboard (10 kΩ), no "inside" frame
 import { computed } from 'vue'
 
 const props = withDefaults(defineProps<{
   pullup?: boolean     // INPUT_PULLUP: the resistor from 5 V to pin 2 is switched on
   pressed?: boolean    // the button connects pin 2 to GND
+  wire?: boolean       // a plain wire from 5 V to pin 2 instead of the resistor
+  outside?: boolean    // the resistor sits on the breadboard: no "inside the Arduino" frame
 }>(), {
   pullup: true,
 })
 
+const short = computed(() => props.wire && props.pressed)
+
 // what pin 2 measures
 const reading = computed(() =>
-  props.pressed ? 'LOW' : props.pullup ? 'HIGH' : '?',
+  short.value ? 'SHORT' : props.pressed ? 'LOW' : (props.pullup || props.wire) ? 'HIGH' : '?',
 )
 const volts = computed(() =>
-  props.pressed ? '0 V · connected to GND'
-    : props.pullup ? '5 V · no current, no drop'
-      : 'floating · not connected',
+  short.value ? '5 V straight to GND'
+    : props.pressed ? '0 V · connected to GND'
+      : props.wire ? '5 V · a plain wire'
+        : props.pullup ? '5 V · no current, no drop'
+          : 'floating · not connected',
 )
-// current flows only from 5 V through the resistor and the button to GND
-const flowing = computed(() => props.pullup && props.pressed)
+// current flows only from 5 V through the resistor (or wire) and the button to GND
+const flowing = computed(() => (props.pullup || props.wire) && props.pressed)
 </script>
 
 <template>
   <svg class="pullup" viewBox="0 0 440 390" role="img"
        aria-label="Button between pin 2 and GND, with the built-in pull-up resistor to 5 V">
     <!-- the Arduino's inside -->
-    <rect class="boundary" x="20" y="10" width="400" height="230" />
-    <text class="caption" x="34" y="32">INSIDE THE ARDUINO</text>
+    <g v-if="!outside">
+      <rect class="boundary" x="20" y="10" width="400" height="230" />
+      <text class="caption" x="34" y="32">INSIDE THE ARDUINO</text>
+    </g>
 
     <!-- pin 2 → button → GND (always there) -->
     <path class="wire" d="M90 210V346" />
 
     <!-- pull-up: 5 V → resistor → pin 2, switched on by INPUT_PULLUP -->
-    <g class="layer" :class="{ on: pullup }">
+    <g class="layer" :class="{ on: pullup || wire }">
       <path class="wire" d="M90 84V210" />
     </g>
 
     <!-- current: only with pull-up and pressed -->
     <g class="layer" :class="{ on: flowing }">
-      <path class="flow" d="M90 84V346" />
-      <path class="signal-fill" d="M83 180L90 194L97 180ZM83 318L90 332L97 318Z" />
-      <text class="gloss signal" x="150" y="372">a tiny current</text>
+      <path class="flow" :class="{ high: short }" d="M90 84V346" />
+      <path v-if="!short" class="signal-fill" d="M83 180L90 194L97 180ZM83 318L90 332L97 318Z" />
+      <text class="gloss signal" x="150" y="372">{{ short ? 'a huge current: short circuit' : 'a tiny current' }}</text>
     </g>
 
     <!-- 5 V -->
@@ -54,11 +65,12 @@ const flowing = computed(() => props.pullup && props.pressed)
     <text class="label" x="90" y="69" text-anchor="middle">5 V</text>
 
     <!-- pull-up resistor -->
-    <g class="layer" :class="{ on: pullup }">
+    <g class="layer" :class="{ on: pullup && !wire }">
       <rect class="part" x="76" y="104" width="28" height="64" />
       <text class="label" x="120" y="130">PULL-UP</text>
-      <text class="gloss" x="120" y="150">INPUT_PULLUP</text>
+      <text class="gloss" x="120" y="150">{{ outside ? '10 kΩ' : 'INPUT_PULLUP' }}</text>
     </g>
+    <text v-if="wire" class="gloss" x="120" y="140">a plain wire</text>
 
     <!-- pin 2 -->
     <circle class="dot" cx="90" cy="210" r="4" />
@@ -97,6 +109,7 @@ const flowing = computed(() => props.pullup && props.pressed)
 .terminal { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
 
 .flow { fill: none; stroke: var(--signal); stroke-width: 2.5; }
+.flow.high { stroke-width: 12; }
 .signal-fill { fill: var(--signal); }
 
 .label {

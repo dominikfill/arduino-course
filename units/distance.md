@@ -54,14 +54,14 @@ Range: about 2 cm to 4 m. Soft or angled surfaces (a sweater, a slanted wall) ca
 <div class="split wide-left">
 <div>
 
-<div class="placeholder h-full">Wiring: HC-SR04 VCC → 5V, Trig → pin 7, Echo → pin 8, GND → − rail (Fritzing)</div>
+<div class="placeholder h-full">Wiring: HC-SR04 in four strips, eyes facing out: VCC → + rail, Trig → pin 7, Echo → pin 8, GND → − rail (Fritzing)</div>
 
 </div>
 <div>
 
-1. **VCC** → **5V**
-2. **Trig** → pin **7**
-3. **Echo** → pin **8**
+1. **Unplug.** Sensor into **four different strips**, eyes facing out
+2. **VCC** → **+** rail
+3. **Trig** → pin **7**, **Echo** → pin **8**
 4. **GND** → **−** rail
 
 <div class="note mt-4">
@@ -143,12 +143,16 @@ class: code-compact
 
 </div>
 
+<p class="example">lights that grow brighter as visitors come closer</p>
+
 </div>
 </div>
 
 <!--
 The same map() and constrain() as the night light: a new sensor, the same idea.
+The example line is the one from "Switch or input?": point back to it. That was the promise of the section, now built.
 Architecture: a space that notices someone approaching. An entrance that lights up, a wall that responds.
 "No echo" gives 0 cm, which map turns into full brightness. In a normal room, walls are within 5 m, so there's always an echo. Pointing it at the open sky would light it fully.
+If the LED flashes to full now and then: a missed echo gives 0 cm, and map() makes that "very close". Good question for the room. Fix with what they know: if (cm > 0) { … } around the three lines, so a missed echo keeps the last brightness.
 Fast students: the heartbeat from session start, beating faster as someone comes closer: int pause = map(cm, 5, 100, 100, 1000); then the heartbeat with delay(pause).
 -->

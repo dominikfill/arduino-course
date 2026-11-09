@@ -16,9 +16,15 @@ clicks: 1
 
 From the pin, through the parts, **back to GND**.
 
-<div v-click="1">
+<div class="task mt-6">
 
-A gap anywhere, and **nothing flows**. A loose wire is the most common reason a circuit doesn't work.
+**Predict:** one wire in the loop comes loose. What happens to the LED?
+
+</div>
+
+<div v-click="1" class="mt-4">
+
+It goes dark. A gap anywhere, and **nothing flows**, anywhere in the loop. A loose wire is the most common reason a circuit doesn't work.
 
 </div>
 
@@ -27,7 +33,8 @@ A gap anywhere, and **nothing flows**. A loose wire is the most common reason a 
 
 <!--
 Trace the loop with your finger: pin, LED, resistor, GND.
-Click: the gap. The LED goes dark, current stops everywhere, not just after the gap.
+Before the click: collect guesses. Then ask why: does the current have to "reach" the gap first?
+[click] The gap. Current stops everywhere at once, not just after the gap. The loop is one thing: open anywhere, it's open everywhere.
 -->
 
 ---
@@ -46,9 +53,9 @@ clicks: 4
 </div>
 <div>
 
-<div v-click="1" class="spec"><b>Voltage</b><code>V · volt</code><span>the <strong>push</strong>, like water pressure</span></div>
-<div v-click="2" class="spec"><b>Current</b><code>I · ampere</code><span>the <strong>flow</strong>: how much passes per second</span></div>
-<div v-click="3" class="spec"><b>Resistance</b><code>R · ohm</code><span>the <strong>narrowing</strong>: a thin pipe lets less through</span></div>
+<div v-click="1" class="spec"><b>Voltage</b><code>V · volt (V)</code><span>the <strong>push</strong>, like water pressure</span></div>
+<div v-click="2" class="spec"><b>Current</b><code>I · ampere (A)</code><span>the <strong>flow</strong>: how much passes per second</span></div>
+<div v-click="3" class="spec"><b>Resistance</b><code>R · ohm (Ω)</code><span>the <strong>narrowing</strong>: a thin pipe lets less through</span></div>
 
 <div v-click="4" class="mt-6">
 
@@ -61,6 +68,10 @@ Voltage **pushes**, resistance **limits**, current is the **result**.
 
 <!--
 Water analogy: voltage = water pressure, current = how much water flows, resistance = a narrow pipe.
+[click] Voltage. Link back to the code: HIGH gives this loop 5 V of push, LOW takes it away. The heartbeat is the push switching on and off.
+[click] Current. Why I and not C? From "intensité", the French for strength of current.
+[click] Resistance. Ω is the Greek capital omega; we'll write it a lot.
+[click]
 Voltage always needs two points: here the pin (5 V) and GND (0 V). A battery in a drawer still has 1.5 V: push without flow, like a closed tap.
 Current isn't used up: the same current flows through the LED and the resistor. What they share is the push: LED about 2 V, resistor about 3 V.
 Stress the order: voltage pushes, resistance limits, current is the result.
@@ -91,7 +102,13 @@ current = push ÷ narrowing
 - more voltage → **more** current
 - more resistance → **less** current
 
-<div class="task mt-6">
+<div class="note mt-4">
+
+1 kΩ = 1000 Ω · 1 mA = 0.001 A
+
+</div>
+
+<div class="task mt-4">
 
 **Predict:** 5 V across **2 kΩ** instead of 1 kΩ. More or less current?
 
@@ -101,12 +118,6 @@ current = push ÷ narrowing
 
 **Less**, half as much:<br>
 5 V ÷ 1000 Ω = 5 mA → 5 V ÷ 2000 Ω = **2.5 mA**
-
-</div>
-
-<div v-click class="note mt-4">
-
-1 kΩ = 1000 Ω · 1 mA = 0.001 A
 
 </div>
 
