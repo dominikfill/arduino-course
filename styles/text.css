@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Text · hierarchy, spacing, tables
+   Sizes are set for a 980px canvas projected in a bright room:
+   body >= 1.15rem, nothing below 0.85rem.
+   ========================================================================== */
+
+.slidev-layout {
+  font-size: 1.15rem;
+}
+
+/* Titles */
+.slidev-layout h1 {
+  font-size: 2.2rem;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  margin: 0 0 0.6rem !important;
+  flex-shrink: 0;
+}
+
+.slidev-layout h2 {
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 1rem 0 0.4rem;
+}
+
+.slidev-layout h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0.8rem 0 0.3rem;
+}
+
+/* The default theme fades the paragraph after h1 to 50% opacity.
+   Opacity is unreliable on projectors: use the muted colour instead. */
+.slidev-layout h1 + p {
+  opacity: 1 !important;
+  color: var(--ink-muted);
+}
+
+/* Eyebrow: unit label above the title, like a drawing annotation
+   <p class="eyebrow">03 · Inputs</p>  (place it before the # title) */
+.slidev-layout .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 0.25rem;
+  flex-shrink: 0;
+}
+
+/* Spacing that scales with font size */
+.slidev-layout p  { line-height: 1.45; margin: 0.6em 0; }
+.slidev-layout li { line-height: 1.45; }
+
+.slidev-layout strong { font-weight: 600; color: var(--ink); }
+
+.slidev-layout a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* Tables: ruled like a drawing schedule */
+.slidev-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: inherit;
+}
+
+.slidev-layout th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+  padding: 0 1em 0.5em 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.slidev-layout td {
+  padding: 0.5em 1em 0.5em 0;
+  border-bottom: 1px solid var(--rule-faint);
+  vertical-align: top;
+}
+
+.slidev-layout tr:last-child td { border-bottom: none; }
+.slidev-layout td:first-child   { white-space: nowrap; }

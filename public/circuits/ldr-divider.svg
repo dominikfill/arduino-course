@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" fill="none" stroke="#141414" stroke-width="2" stroke-linecap="square" font-family="IBM Plex Mono, monospace" font-size="13">
+  <!-- Test schematic: ink on transparent, sits directly on the paper -->
+  <text x="62" y="18" fill="#141414" stroke="none">5V</text>
+  <path d="M60 24v16"/>
+  <!-- LDR -->
+  <rect x="50" y="40" width="20" height="40"/>
+  <path d="M26 44l16 9M26 58l16 9" stroke-width="1.5"/>
+  <path d="M36 51l6 2-3 5M36 65l6 2-3 5" stroke-width="1.5"/>
+  <text x="80" y="64" fill="#141414" stroke="none">LDR</text>
+  <!-- node to A0 -->
+  <path d="M60 80v20h90"/>
+  <circle cx="60" cy="100" r="3" fill="#141414"/>
+  <circle cx="150" cy="100" r="3" fill="#141414"/>
+  <text x="158" y="105" fill="#141414" stroke="none">A0</text>
+  <!-- fixed resistor -->
+  <path d="M60 100v14"/>
+  <rect x="50" y="114" width="20" height="40"/>
+  <text x="80" y="138" fill="#57554f" stroke="none">10 kΩ</text>
+  <!-- ground -->
+  <path d="M60 154v20M42 174h36M48 181h24M54 188h12"/>
+  <text x="84" y="186" fill="#141414" stroke="none">GND</text>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" font-family="sans-serif" font-size="12">
+  <!-- Simulates a Fritzing/datasheet export with an opaque white background.
+       With mix-blend-mode: multiply the white should disappear into the paper. -->
+  <rect width="240" height="160" fill="#ffffff"/>
+  <rect x="30" y="30" width="180" height="90" fill="#dcdcdc" stroke="#333" stroke-width="1.5"/>
+  <g fill="#333">
+    <circle cx="50" cy="50" r="3"/><circle cx="70" cy="50" r="3"/><circle cx="90" cy="50" r="3"/>
+    <circle cx="110" cy="50" r="3"/><circle cx="130" cy="50" r="3"/><circle cx="150" cy="50" r="3"/>
+    <circle cx="50" cy="100" r="3"/><circle cx="70" cy="100" r="3"/><circle cx="90" cy="100" r="3"/>
+    <circle cx="110" cy="100" r="3"/><circle cx="130" cy="100" r="3"/><circle cx="150" cy="100" r="3"/>
+  </g>
+  <path d="M70 50 C 70 80, 130 70, 130 100" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="30" y="145" fill="#333">white-background export (should blend away)</text>
+</svg>

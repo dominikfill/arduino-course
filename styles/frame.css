@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Frame · slide ground, default layout, columns
+   ========================================================================== */
+
+/* Paper ground and ink on every layout */
+.slidev-layout {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+/* Default layout: a full-height column that stops above the footer.
+   Scoped to .default so cover/section/center layouts aren't affected. */
+.slidev-layout.default {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: var(--footer-clearance) !important;
+}
+
+/* Columns that fill the slide below the title
+   <div class="split">               1 : 1
+   <div class="split wide-left">     3 : 2  (code gets more room)
+   <div class="split thirds">        1 : 1 : 1 */
+.slidev-layout .split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 2rem;
+  flex: 1 1 0%;
+  min-height: 0;
+}
+
+.slidev-layout .split.wide-left { grid-template-columns: 3fr 2fr; }
+
+.slidev-layout .split.thirds {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.slidev-layout .split > * { min-height: 0; }
+
+/* The first element in a column starts flush with the top */
+.slidev-layout .split > * > :first-child { margin-top: 0; }
+
+/* Section divider: large title, ink on paper (never inverted) */
+.slidev-layout.section h1 {
+  font-size: 3.25rem;
+  line-height: 1.05;
+}

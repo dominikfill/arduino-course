@@ -1,0 +1,35 @@
+/* ==========================================================================
+   Tokens · direction A "drawing sheet", tuned for a bright room
+   Change a value here and it changes everywhere.
+   Names describe the role, not the colour, so the palette can change later.
+   ========================================================================== */
+
+:root {
+    /* Ground and ink */
+    --paper: #f6f4ef;
+    /* slide background: off-white, less glare than #fff */
+    --paper-deep: #ebe8e0;
+    /* code blocks, quiet surfaces */
+    --ink: #141414;
+    /* all text, line work, rules */
+    --ink-muted: #57554f;
+    /* secondary text, labels (~7:1 on paper) */
+
+    /* Lines. Never thinner than 1px: hairlines vanish on a washed-out projector. */
+    --rule: var(--ink);
+    /* structural lines: footer, table header, spec */
+    --rule-faint: #c4c0b6;
+    /* table row dividers */
+
+    /* Accent: used ONLY for tasks, so it always means "your turn".
+     A redline red, like corrections on a drawing. */
+    --accent: #c2311b;
+
+    /* Type */
+    --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    /* Space */
+    --footer-clearance: 3.25rem;
+    /* keeps default-layout content above the footer */
+}

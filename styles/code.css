@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Code · light high-contrast theme on a slightly darker paper
+   No scrolling: code that doesn't fit is a signal to split it or to step
+   through it with line highlights ({1-4|6-9}), not to hide it.
+   ========================================================================== */
+
+.slidev-layout {
+  --slidev-code-background: var(--paper-deep);
+  --slidev-code-radius: 0;
+  --slidev-code-font-size: 0.95rem;
+  --slidev-code-line-height: 1.5;
+}
+
+.slidev-layout .slidev-code-wrapper {
+  margin: 0.75rem 0 !important;
+  flex-shrink: 0;
+}
+
+.slidev-layout pre.slidev-code {
+  background: var(--paper-deep) !important;
+  border: 1px solid var(--rule-faint);
+  border-radius: 0 !important;
+  overflow: visible !important;
+  font-family: var(--font-mono);
+}
+
+/* First code block in a column sits flush with the top, level with neighbours */
+.slidev-layout .split > * > .slidev-code-wrapper:first-child {
+  margin-top: 0 !important;
+}
+
+/* Inline code */
+.slidev-layout :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--paper-deep);
+  color: var(--ink);
+  padding: 0.05em 0.3em;
+  border-radius: 0;
+}
