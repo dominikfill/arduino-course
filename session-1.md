@@ -16,5 +16,17 @@ layout: cover
 Responsive Pavilion · 2026W
 
 ---
-src: ./units/01-first-sketch.md
+src: ./units/first-sketch.md
+---
+
+---
+src: ./units/board.md
+---
+
+---
+src: ./units/electricity.md
+---
+
+---
+src: ./units/breadboard.md
 ---

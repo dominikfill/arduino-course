@@ -1,4 +1,4 @@
-<p class="eyebrow">01 · First sketch</p>
+<p class="eyebrow">First sketch</p>
 
 # What will it do?
 
@@ -33,7 +33,7 @@ Keep heartbeat.ino ready for anyone stuck after ~5 min; have them compare it wit
 
 ---
 
-<p class="eyebrow">01 · First sketch</p>
+<p class="eyebrow">First sketch</p>
 
 # Upload it
 
@@ -80,7 +80,7 @@ Common problems:
 
 ---
 
-<p class="eyebrow">01 · First sketch</p>
+<p class="eyebrow">First sketch</p>
 
 # Anatomy of a sketch
 
@@ -110,7 +110,7 @@ The program stays on the board: unplug it and power it from a power bank, and it
 
 ---
 
-<p class="eyebrow">01 · First sketch</p>
+<p class="eyebrow">First sketch</p>
 
 # Code grammar
 
@@ -146,7 +146,7 @@ Code has a strict grammar. Small slips cause most beginner errors.
 
 ---
 
-<p class="eyebrow">01 · First sketch</p>
+<p class="eyebrow">First sketch</p>
 
 # Break it, then explain it
 

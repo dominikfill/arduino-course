@@ -25,6 +25,9 @@
      A redline red, like corrections on a drawing. */
     --accent: #c2311b;
 
+    /* Signal: the one colour in diagrams. Means "where electricity flows". */
+    --signal: #1f5bb5;
+
     /* Type */
     --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
