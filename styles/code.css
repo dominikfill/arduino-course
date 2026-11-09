@@ -38,3 +38,9 @@
   padding: 0.05em 0.3em;
   border-radius: 0;
 }
+
+/* Compact code for long sketches. Use per slide with  class: code-compact */
+.code-compact .slidev-code {
+  --slidev-code-font-size: 0.8rem;
+  --slidev-code-line-height: 1.35;
+}

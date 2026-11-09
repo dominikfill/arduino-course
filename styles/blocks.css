@@ -124,3 +124,8 @@
 .slidev-layout .task p:last-child { margin-bottom: 0; }
 
 .slidev-layout .task strong { color: var(--accent); }
+
+/* Figures inside columns fill the column height and scale to fit */
+.slidev-layout .split .figure {
+  height: 100%;
+}

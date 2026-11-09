@@ -29,7 +29,7 @@ const pwmPins = [535, 567, 598, 712, 743, 807]
   <figure class="board">
     <svg :viewBox="viewBox" role="img" aria-label="Arduino UNO R4 WiFi, background removed, labels added">
       <image class="photo" x="20" y="150" width="1000" height="750"
-             href="/images/arduino-uno-r4-wifi.webp" />
+             href="/images/arduino-uno-r4-wifi.png" />
 
       <!-- top -->
       <g v-if="has('usb')">
