@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { useNav, useSlideContext } from '@slidev/client'
 
+
 const { currentLayout, currentFrontmatter } = useNav()
 
 // Deck title from the entry's headmatter (`title:`), via the typed composable

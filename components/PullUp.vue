@@ -64,6 +64,7 @@ const flowing = computed(() => props.pullup && props.pressed)
     <circle class="dot" cx="90" cy="210" r="4" />
     <rect class="pin" x="80" y="230" width="20" height="20" />
     <text class="label" x="120" y="258">PIN 2</text>
+    <text class="gloss" x="200" y="258">only looks, no current in</text>
 
     <!-- what the pin reads -->
     <text class="caption" x="250" y="140">PIN 2 READS</text>

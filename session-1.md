@@ -48,5 +48,17 @@ src: ./units/pwm.md
 ---
 
 ---
+src: ./units/light.md
+---
+
+---
+src: ./units/temperature.md
+---
+
+---
+src: ./units/distance.md
+---
+
+---
 src: ./units/recap.md
 ---
