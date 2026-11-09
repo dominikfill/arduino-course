@@ -40,7 +40,8 @@
 }
 
 /* Compact code for long sketches. Use per slide with  class: code-compact */
-.code-compact .slidev-code {
-  --slidev-code-font-size: 0.8rem;
-  --slidev-code-line-height: 1.35;
+.code-compact pre.slidev-code,
+.code-compact pre.slidev-code code {
+  font-size: 0.8rem !important;
+  line-height: 1.35 !important;
 }

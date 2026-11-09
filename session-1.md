@@ -38,3 +38,15 @@ src: ./units/external-led.md
 ---
 src: ./units/button.md
 ---
+
+---
+src: ./units/potentiometer.md
+---
+
+---
+src: ./units/pwm.md
+---
+
+---
+src: ./units/recap.md
+---
