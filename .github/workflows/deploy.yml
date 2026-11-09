@@ -1,6 +1,7 @@
-# Builds both sessions on every push to main and publishes them on GitHub Pages:
+# Builds all sessions on every push to main and publishes them on GitHub Pages:
 #   https://<username>.github.io/<repository>/session-1/
 #   https://<username>.github.io/<repository>/session-2/
+#   https://<username>.github.io/<repository>/session-3/
 name: Publish slides
 
 on:
@@ -38,6 +39,9 @@ jobs:
       - name: Build session 2
         run: npx slidev build session-2.md --out dist/session-2 --base $BASE/session-2/
 
+      - name: Build session 3
+        run: npx slidev build session-3.md --out dist/session-3 --base $BASE/session-3/
+
       - name: Start page with links to both sessions
         run: |
           cat > dist/index.html <<HTML
@@ -59,6 +63,7 @@ jobs:
             <h1>Responsive Pavilion · Arduino</h1>
             <a href="session-1/">Session 1 →</a>
             <a href="session-2/">Session 2 →</a>
+            <a href="session-3/">Session 3 →</a>
           </main></body></html>
           HTML
 
