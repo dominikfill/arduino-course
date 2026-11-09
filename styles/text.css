@@ -90,3 +90,13 @@
 
 .slidev-layout tr:last-child td { border-bottom: none; }
 .slidev-layout td:first-child   { white-space: nowrap; }
+
+/* Chain: a signal path written as text
+   <p class="chain">button → pin 2 → program → pin 9 → LED</p> */
+.slidev-layout .chain {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin: 0.4em 0 0.8em;
+}

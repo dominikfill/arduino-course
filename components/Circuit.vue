@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 // One LED circuit, drawn in the course style. Layers switch on via props,
 // so one drawing serves every electricity slide.
 //
@@ -6,20 +7,28 @@
 //   <Circuit current gap />                          broken loop (current off)
 //   <Circuit :voltage="$clicks >= 1" :current="$clicks >= 2" :resistance="$clicks >= 3" />
 //   <Circuit current high :resistor="false" />       no resistor: too much current
+//   <Circuit current button :pressed="$clicks >= 1" /> a push button in the loop
 //
 // Ink = parts and wires · blue (--signal) = current, the only colour in diagrams.
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   voltage?: boolean      // show the voltage arrow between PIN and GND
   current?: boolean      // show current flowing around the loop
   resistance?: boolean   // label the resistor
   resistor?: boolean     // draw the resistor at all
   gap?: boolean          // break the loop (a loose wire)
   high?: boolean         // thick current line: too much current
+  button?: boolean       // a push button in the bottom wire
+  pressed?: boolean      // ...and whether it is pressed (closes the loop)
   ohms?: string          // resistor value label
 }>(), {
   resistor: true,
   ohms: '470 Ω',
 })
+
+// current flows only through a closed loop
+const flowing = computed(() =>
+  props.current && !props.gap && (!props.button || props.pressed),
+)
 </script>
 
 <template>
@@ -29,7 +38,7 @@ withDefaults(defineProps<{
     <path class="wire" d="M140 70H360V250H140" />
 
     <!-- current: blue line along the wire, under the parts -->
-    <g class="layer" :class="{ on: current && !gap }">
+    <g class="layer" :class="{ on: flowing }">
       <path class="flow" :class="{ high }" d="M140 70H360V250H140" />
     </g>
 
@@ -37,6 +46,16 @@ withDefaults(defineProps<{
     <g v-if="gap">
       <rect class="knockout" x="282" y="236" width="36" height="28" />
       <path class="wire" d="M282 242V258M318 242V258" />
+    </g>
+
+    <!-- push button: open lifts the contact, pressed closes the loop -->
+    <g v-if="button">
+      <rect class="knockout" x="276" y="226" width="48" height="34" />
+      <path v-if="pressed" class="wire" d="M282 250H318" />
+      <path v-else class="wire" d="M282 250L314 232" />
+      <circle class="terminal" cx="282" cy="250" r="3.5" />
+      <circle class="terminal" cx="318" cy="250" r="3.5" />
+      <text class="label small" x="300" y="274" text-anchor="middle">BUTTON</text>
     </g>
 
     <!-- PIN and GND -->
@@ -51,7 +70,7 @@ withDefaults(defineProps<{
     <rect class="knockout" x="228" y="48" width="46" height="44" />
     <path class="part" d="M236 50V90L266 70Z" stroke-linejoin="round" />
     <path class="wire" d="M268 50V90" />
-    <g class="layer" :class="{ on: current && !gap }">
+    <g class="layer" :class="{ on: flowing }">
       <path class="ray" d="M250 42l10-14M264 42l10-14" />
       <path class="ink-fill" d="M256 28l7-4-1 8ZM270 28l7-4-1 8Z" />
     </g>
@@ -69,7 +88,7 @@ withDefaults(defineProps<{
     </g>
 
     <!-- current arrows and label -->
-    <g class="layer" :class="{ on: current && !gap }">
+    <g class="layer" :class="{ on: flowing }">
       <path v-if="!high" class="signal-fill"
             d="M182 62L198 70L182 78ZM352 214L360 230L368 214ZM256 242L240 250L256 258Z" />
       <text class="label signal" x="250" y="292" text-anchor="middle">CURRENT</text>
@@ -97,6 +116,7 @@ withDefaults(defineProps<{
 .arrow-line, .ray { stroke-width: 1.8; }
 .knockout { fill: var(--paper); }
 .ink-fill { fill: var(--ink); }
+.terminal { fill: var(--paper); stroke: var(--ink); stroke-width: 2; }
 
 .flow {
   fill: none;
