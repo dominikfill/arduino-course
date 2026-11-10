@@ -2,8 +2,9 @@
 layout: section
 ---
 
-# Import Data
+# Data
 
+The space reacts to what happened elsewhere.
 
 ---
 clicks: 2
@@ -175,7 +176,7 @@ The board can't open files. **Python** prepares the data on the laptop.
 The slide shows only the heart of the script. The whole file: python/tide_to_arduino.py in the course repository.
 Students don't need to learn Python here. The point: data from the web often needs preparing before a small board can use it, and Python is the usual tool for that.
 tide is a list: it starts empty, and every line of DAY adds one number.
-At the end the script writes sketches/18-tide-list/tide_data.h and prints: Read 24 hours of 12/11/2019. Lowest: 38 cm Highest: 181 cm.
+At the end the script writes data/tide_data.h and prints: Read 24 hours of 12/11/2019. Lowest: 38 cm Highest: 181 cm.
 Another day: change DAY at the top (written like 12/11/2019), Run again, re-upload. Their birthday, the first day of the semester, a calm day in summer.
 Another year: download that year's file into data/, change FILE_NAME.
 The script needs only plain Python: no extra packages to install.
@@ -238,7 +239,7 @@ void loop() {
 </div>
 
 <!--
-tide_data.h sits in the sketch's folder, next to the .ino. If the tab doesn't show: close the sketch and open it again (the IDE only looks when it opens a sketch).
+Python writes tide_data.h into data/: copy it into the sketch's folder, next to the .ino (18-tide-list, 20-tide-colour). If the tab doesn't show: close the sketch and open it again (the IDE only looks when it opens a sketch).
 A list (array): many numbers under one name. tide[0] is 00:00, tide[23] is 23:00.
 hour sits outside loop(): it remembers, as position did with the stepper.
 setup() is not on the slide: Serial.begin(9600), as always.

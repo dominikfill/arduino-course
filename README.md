@@ -43,12 +43,12 @@ All Arduino sketches from the slides are in [`sketches/`](sketches/). To use one
 | `19-rgb-mix` | Mixes colours with the RGB LED |
 | `20-tide-colour` | One day of Venice's tide as colour: low water blue, high water red |
 
-The tide sketches read their data from `tide_data.h`, which the Python script writes (see below).
+The tide sketches read their data from `tide_data.h`, which the Python script writes (see below). Copy it into the sketch's folder, next to the `.ino`.
 
 ## Data and Python
 
 - [`data/`](data/): `valori_orari_puntasalute_Venezia_2019.csv`, the hourly water level in Venice (Punta della Salute), 2019, in metres. Source: [Comune di Venezia, Centro Previsioni e Segnalazioni Maree](https://www.comune.venezia.it/it/content/archivio-storico-livello-marea-venezia-1).
-- [`python/tide_to_arduino.py`](python/tide_to_arduino.py): picks one day from the file, converts it to cm and writes `tide_data.h` into the tide sketches. Change `DAY` at the top for another day. Needs only plain Python, no extra packages.
+- [`python/tide_to_arduino.py`](python/tide_to_arduino.py): picks one day from the file, converts it to cm and writes `data/tide_data.h`. Change `DAY` at the top for another day. Needs only plain Python, no extra packages.
 
 ## Kit
 
