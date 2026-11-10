@@ -5,7 +5,6 @@
   "scripts": {
     "build": "slidev build",
     "dev": "slidev --open",
-    "dev:test": "slidev test.md --open",
     "dev:s1": "slidev session-1.md --open",
     "dev:s2": "slidev session-2.md --open",
     "export": "slidev export",

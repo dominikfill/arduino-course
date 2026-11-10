@@ -1,0 +1,122 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "5d85e85a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import csv\n",
+    "from pathlib import Path"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "93363fce",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "FILE_NAME = \"valori_orari_puntasalute_Venezia_2019.csv\"\n",
+    "DAY = \"12/11/2019\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0942879b",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['01/01/2020', '00:00', '0.21']"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "here = Path.cwd()\n",
+    "in_file = here / \"data\" / FILE_NAME\n",
+    "out_file = here / \"data\" / \"tide_data.h\"\n",
+    "\n",
+    "# 1. Read the file, line by line, and keep only the lines of DAY\n",
+    "tide = []\n",
+    "\n",
+    "with open(in_file, newline=\"\") as f:\n",
+    "    reader = csv.reader(f, delimiter=\";\")\n",
+    "    next(reader)  # skip the first line: the column names\n",
+    "    for row in reader:\n",
+    "        if len(row) < 3 or row[2] == \"\":\n",
+    "            continue  # empty or broken line: skip it\n",
+    "        day, hour, level = row\n",
+    "        if day == DAY:\n",
+    "            cm = round(float(level) * 100)  # \"1.81\" metres → 181 cm\n",
+    "            tide.append(cm)\n",
+    "\n",
+    "if len(tide) == 0:\n",
+    "    print(\"No lines found for\", DAY, \"- check the date, written like 12/11/2019\")\n",
+    "    raise SystemExit\n",
+    "\n",
+    "row\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "94d16f1d",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Read 24 hours of 12/11/2019\n",
+      "Lowest: 38 cm   Highest: 181 cm\n",
+      "Written to c:\\Users\\Dominik\\Desktop\\code\\2026W_259.172_Responsive-Pavilion\\arduino-workshop\\data\\tide_data.h\n"
+     ]
+    }
+   ],
+   "source": [
+    "numbers = [str(cm) for cm in tide]\n",
+    "lines = [\", \".join(numbers[i : i + 12]) for i in range(0, len(numbers), 12)]\n",
+    "\n",
+    "with open(out_file, \"w\") as f:\n",
+    "    f.write(\"// Made by tide_to_arduino.py from \" + FILE_NAME + \"\\n\")\n",
+    "    f.write(\"// Water level in Venice on \" + DAY + \", hour by hour, in cm\\n\")\n",
+    "    f.write(\"const int HOURS = \" + str(len(tide)) + \";\\n\")\n",
+    "    f.write(\"const int tide[HOURS] = {\\n  \" + \",\\n  \".join(lines) + \"\\n};\\n\")\n",
+    "\n",
+    "# 3. Show what happened\n",
+    "print(\"Read\", len(tide), \"hours of\", DAY)\n",
+    "print(\"Lowest:\", min(tide), \"cm   Highest:\", max(tide), \"cm\")\n",
+    "print(\"Written to\", out_file)"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.14.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

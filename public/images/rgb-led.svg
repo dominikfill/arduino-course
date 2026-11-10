@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" font-family="IBM Plex Mono, ui-monospace, monospace">
+<path d="M180 210 V120 A80 80 0 0 1 340 120 V210 Z" fill="none" stroke="#141414" stroke-width="2.5"/>
+<path d="M172 210 H354 V230 H172 Z" fill="none" stroke="#141414" stroke-width="2.5"/>
+<line x1="205" y1="230" x2="205" y2="360" stroke="#141414" stroke-width="2.5"/>
+<line x1="240" y1="230" x2="240" y2="430" stroke="#141414" stroke-width="3.5"/>
+<line x1="280" y1="230" x2="280" y2="360" stroke="#141414" stroke-width="2.5"/>
+<line x1="315" y1="230" x2="315" y2="360" stroke="#141414" stroke-width="2.5"/>
+<text x="205" y="388" font-size="22" font-weight="600" fill="#141414" text-anchor="middle">R</text>
+<text x="240" y="458" font-size="22" font-weight="600" fill="#141414" text-anchor="middle">−</text>
+<text x="280" y="388" font-size="22" font-weight="600" fill="#141414" text-anchor="middle">G</text>
+<text x="315" y="388" font-size="22" font-weight="600" fill="#141414" text-anchor="middle">B</text>
+<text x="240" y="490" font-size="14" fill="#57554f" text-anchor="middle">shared minus</text>
+</svg>

@@ -53,3 +53,10 @@
   font-size: 0.8rem !important;
   line-height: 1.35 !important;
 }
+
+/* Even smaller, for the longest sketches (about 25 lines). Use per slide with  class: code-tiny */
+.code-tiny pre.slidev-code,
+.code-tiny pre.slidev-code code {
+  font-size: 0.72rem !important;
+  line-height: 1.3 !important;
+}
